@@ -67,4 +67,4 @@ Python客户端代码请看[client.py](./client.py)文件。
 
 ![demo](./images/demo.gif)
 
-可以看到server收到账号密码，拼在一起用Base64编码后又返回给了客户端。
+可以看到server收到账号密码，拼接在一起后对其进行Base64编码，然后返回给了客户端。
