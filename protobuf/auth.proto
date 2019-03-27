@@ -4,15 +4,18 @@ option go_package = "protobuf";
 
 package auth;
 
+// 定义客户端要发送的数据格式 
 message Request {
   string username = 1;
   string password = 2;
 }
 
+// 定义服务端返回的数据格式
 message Response {
   string result = 1;
 }
 
+// 定义可以被远程调用的函数
 service AUTH {
   rpc AuthLogin (stream Request) returns (stream Response) {}
 }
