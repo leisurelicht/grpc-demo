@@ -15,18 +15,15 @@ gRPC是Google开源的一个跨语言和平台的高性能RPC框架。
 
 ## 1. 定义数据格式
 
-首先我们使用protobuf定义传输的数据格式.
-
-然后创建protobuf/auth.proto文件，并在里面定义我们要传输的数据格式。代码看[这里](./protobuf/auth.proto)。
+首先我们使用protobuf定义传输的数据格式.这里我们需要创建`protobuf/auth.proto`文件，并在里面定义我们要传输和返回的数据格式，以及可以被远程调用的函数。代码看[这里](./protobuf/auth.proto)。
 
 ## 2. 自动生成代码
 
 定义好数据格式以后，我们要使用protoc自动生成客户端和服务端代码。这里你需要先安装[protoc](https://github.com/protocolbuffers/protobuf#protocol-compiler-installation)。
 
-1. 首先生成Python3需要使用的客户端代码。
+1. 首先生成Python3需要使用的代码。
 
     ```
-    # Python3 client
     pip3 install -r requirements.txt
     python3 -m grpc_tools.protoc -I protobuf/ --python_out=./protobuf --grpc_python_out=./protobuf protobuf/auth.proto
     ```
