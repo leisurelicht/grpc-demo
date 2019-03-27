@@ -43,7 +43,7 @@ gRPC是Google开源的一个跨语言和平台的高性能RPC框架。
     
 Go服务端代码请看看[server.go](./server.go)文件。
 
-* 在`server.go`文件中主要用到了`auth.pb.go`文件中的三个函数，如下图：
+* 在`server.go`文件中主要用到了`auth.pb.go`文件中的三个接口，如下图：
 ![go_rpc](./images/go_rpc.png)
 
 Python客户端代码请看[client.py](./client.py)文件。
