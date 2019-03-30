@@ -8,6 +8,8 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -22,6 +24,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+// 定义客户端要发送的数据格式
 type Request struct {
 	Username             string   `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	Password             string   `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
@@ -69,6 +72,7 @@ func (m *Request) GetPassword() string {
 	return ""
 }
 
+// 定义服务端返回的数据格式
 type Response struct {
 	Result               string   `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -187,6 +191,14 @@ func (x *aUTHAuthLoginClient) Recv() (*Response, error) {
 // AUTHServer is the server API for AUTH service.
 type AUTHServer interface {
 	AuthLogin(AUTH_AuthLoginServer) error
+}
+
+// UnimplementedAUTHServer can be embedded to have forward compatible implementations.
+type UnimplementedAUTHServer struct {
+}
+
+func (*UnimplementedAUTHServer) AuthLogin(srv AUTH_AuthLoginServer) error {
+	return status.Errorf(codes.Unimplemented, "method AuthLogin not implemented")
 }
 
 func RegisterAUTHServer(s *grpc.Server, srv AUTHServer) {
