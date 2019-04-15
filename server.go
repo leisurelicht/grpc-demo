@@ -20,7 +20,7 @@ func (*authServer) AuthLogin(stream pb.AUTH_AuthLoginServer) error {
 		} else if err != nil {
 			return err
 		}
-		fmt.Printf("收到的用户名：%s, 密码：%s.\n", req.Username, req.Password)
+		fmt.Printf("\n收到的用户名：%s, 密码：%s.", req.Username, req.Password)
 		c := make(chan string)
 		go str2base64(c, req.Username, req.Password)
 		for n := range c {
@@ -40,8 +40,8 @@ func newAuthServer() pb.AUTHServer {
 
 func str2base64(c chan string, username string, password string) {
 	result := base64.StdEncoding.EncodeToString([]byte(username + password))
-	fmt.Printf("Base64编码后的结果为: %s.\n", result)
-	fmt.Printf("--------------------")
+	fmt.Printf("\nBase64编码后的结果为: %s.", result)
+	fmt.Printf("\n--------------------")
 	c <- result
 	close(c)
 }
@@ -51,6 +51,7 @@ func main() {
 	flag.Parse()
 
 	fmt.Printf("认证服务启动, 运行端口为: %d", *port)
+	fmt.Printf("\n--------------------")
 	conn, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
 
 	if err != nil {
