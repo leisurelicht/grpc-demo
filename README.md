@@ -1,5 +1,12 @@
 # gRPC-demo
 
+
+[![Support Python Version](https://img.shields.io/badge/Python-3.6.5-brightgreen.svg)](https://www.python.org/)
+[![Support Go Version](https://img.shields.io/badge/Go-1.11.5-blue.svg)](https://www.python.org/)
+[![Support Protobuf Version](https://img.shields.io/badge/Protoc-3.7.1-blueviolet.svg)](https://www.python.org/)
+
+---
+
 gRPC是Google开源的一个跨语言和平台的高性能RPC框架。
 
 *他的主要特性有：*
@@ -21,10 +28,13 @@ gRPC是Google开源的一个跨语言和平台的高性能RPC框架。
 
 定义好数据格式以后，我们要使用protoc自动生成客户端和服务端代码。这里你需要先安装[protoc](https://github.com/protocolbuffers/protobuf#protocol-compiler-installation)。
 
+mac用户可以直接用 `brew install protobuf` 安装。
+
 1. 首先生成Python3需要使用的代码。
 
+    使用 `pip3 install -r requirements.txt` 命令安装Python3所需要的包
+
     ```
-    pip3 install -r requirements.txt
     python3 -m grpc_tools.protoc -I protobuf/ --python_out=./protobuf --grpc_python_out=./protobuf protobuf/auth.proto
     ```
 
@@ -32,15 +42,18 @@ gRPC是Google开源的一个跨语言和平台的高性能RPC框架。
 
 2. 生成Go需要使用的服务端代码
 
+    使用 `go get -u google.golang.org/grpc` 安装 go 的 grpc，由于墙的原因，我们可能需要一些别的方法，看[这里](https://www.cnblogs.com/leisurelylicht/p/Go-an-zhuanggRPC.html)。
+
     ```
     protoc -I protobuf/ --go_out=plugins=grpc:protobuf/ protobuf/auth.proto
     ```
+
     这条命令会自动在`protobuf`文件夹中生成文件 `auth.pb.go`。
 
 这三个文件我们将在后面编码中使用。
 
 ## 3. 编写服务端和客户端代码
-    
+
 Go服务端代码请看看[server.go](./server.go)文件。
 
 * 在`server.go`文件中主要用到了`auth.pb.go`文件中的三个接口，如下图：
